@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Productos</title>
+  <link rel="stylesheet" href="/stylesheets/styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+</head>
+<style>
+</style>
+<body>
+  <% if (hasCategories) { %>
+    <main class="products">
+      <div class="form">
+        <form class="form-product" method="POST" action="/productos">
+          <div class="mb-3">
+            <label class="form-label">Codigo</label>
+            <input class="form-control" type="text" placeholder="Introduce el codigo.." name="codigo" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Producto</label>
+            <input type="text" class="form-control" placeholder="Introduce el nombre.." name="producto" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Categoria</label>
+            <select name="categoria_id" class="form-select" required>
+              <option value="">Selecciona una opción</option>
+              <% categorias.forEach(categoria=> { %>
+              <option value="<%= categoria.id %>"><%= categoria.categoria %></option>
+              <% }) %>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Existencia actual</label>
+            <input type="text" class="form-control" placeholder="Existencia.." name="existencia_actual" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Precio</label>
+            <input type="text" class="form-control" placeholder="Introduce el precio.." name="precio" required>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar</button>
+        </form>
+      </div>
+      <div class="cards">
+        <% products.forEach(product=> { %>
+          <div class="card" style="width: 18rem;">
+            <div class="card-body" style="flex: 0;">
+              <h5 class="card-title">
+                Código: <%= product.codigo %>
+              </h5>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Producto: <%= product.producto %>
+              </li>
+              <li class="list-group-item">Categoria: <%= product.categoria %>
+              </li>
+              <li class="list-group-item">Existencia actual: <%= product.existencia_actual %>
+              </li>
+              <li class="list-group-item">Precio: <%= product.precio %>
+              </li>
+            </ul>
+            <div class="card-body">
+              <a href="/productos/editar/<%= product.id %>" class="btn btn-warning">Editar</a>
+              <a href="/productos/eliminar/<%= product.id %>" class="btn btn-danger">Eliminar</a>
+            </div>
+          </div>
+          <% }) %>
+      </div>
+      <% } else { %>
+        <div style="height: 100vh; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+          <h2>No hay categorías disponibles. Por favor, agregue una categoría primero.</h2>
+          <a href="/categorias" style="font-size: 1.3rem;">Haga click aquí para agregar una categoria!</a>
+        </div>
+
+
+    </main>
+    <% } %>
+</body>
+
+</html>

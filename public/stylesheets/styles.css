@@ -1,0 +1,35 @@
+* {
+    box-sizing: border-box;
+}
+
+.products {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    padding: 2rem 0rem;
+    gap: 2rem;
+}
+
+.form-product {
+    width: 320px;
+}
+
+.cards {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+@media screen and (max-width: 640px) {
+    .products{
+        flex-direction: column;
+    }
+
+    .cards {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+}
